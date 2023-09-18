@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const router = express.Router();
 
-app.post("/addservice", async (req, res) => {
+router.post("/addservice", async (req, res) => {
   try {
     let body = req.body;
     const { parentCode, childCode, parentName, childName } = body;
@@ -14,4 +14,4 @@ app.post("/addservice", async (req, res) => {
   }
 });
 
-export default servicesApi;
+export default router;

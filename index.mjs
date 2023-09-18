@@ -1,16 +1,12 @@
 import express from "express";
 import path from "path";
-import cookieParser from "cookie-parser";
-import mongoose from "mongoose";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import servicesApi from "./apis/Generals/Services.mjs";
 import * as dotenv from "dotenv";
-// const serviceApi = require("./Apis/ServicesApi");
-// import serviceApi from "./Apis/ServicesApi";
-// import { serviceModel } from "./Schemas/Generals/Services";
-// import { router } from "./Apis/ServicesApi";
-// import servicesApi from "./Apis/Generals/ServicesApi";
-
+import mongoose from "mongoose";
 dotenv.config();
+
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -19,22 +15,20 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "*"],
     credentials: true,
   })
 );
-
-// app.use("/api/v1", serviceApi);
+app.use("/api/v1", servicesApi);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
 app.use("*", express.static(path.join(__dirname, "./Frontend/build")));
 
 app.listen(port, () => {
-  console.log(`App Listening at ${port}`);
+  console.log(`Example app listening on port ${port}`);
 });
 
-// --- mongoose things ---- //
 const MONGODB_URI = process.env.MONGODB_URI;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,3 +59,4 @@ process.on("SIGINT", function () {
   console.log("Mongoose default connection closed");
   process.exit(0);
 });
+////////////////mongodb connected disconnected events///////////////////////////////////////////////
