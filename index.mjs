@@ -3,6 +3,7 @@ import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import servicesApi from "./apis/Generals/Services.mjs";
+import consultantApi from "./apis/Generals/Consultant.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(
   })
 );
 app.use("/api/v1", servicesApi);
+app.use("/api/v1", consultantApi);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
