@@ -11,3 +11,4 @@ const consultant = new mongoose.Schema({
   phone: { type: String },
   status: { type: Boolean, default: false },
 });
+export const ConsultantsModel = mongoose.model("consultants", consultant);
