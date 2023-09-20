@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import servicesApi from "./apis/Generals/Services.mjs";
 import consultantApi from "./apis/Generals/Consultant.mjs";
 import cashLocation from "./apis/Generals/CashCollecting.mjs";
+import partyApi from "./apis/Generals/Party.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(
 app.use("/api/v1", servicesApi);
 app.use("/api/v1", consultantApi);
 app.use("/api/v1", cashLocation);
+app.use("/api/v1", partyApi);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
