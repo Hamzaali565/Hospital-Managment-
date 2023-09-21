@@ -4,42 +4,37 @@ const router = express.Router();
 
 router.post("/addparty", async (req, res) => {
   try {
-    const {
-      partyCode,
-      partyDescription,
-      parentCode,
-      Address,
-      coOrdinator,
-      area,
-      email,
-      contactNo,
-      accountCode,
-      transactionType,
-      status,
-      defaultType,
-      paymentReciept,
-    } = req.body;
-    if (![parentCode].every(Boolean)) {
-      if (![accountCode, partyCode, partyDescription].every(Boolean))
-        throw new Error(
-          "Account Code, Description and Party Code  is required to create Parent Account"
+    let { parent, childs } = req.body;
+    if (!parent) throw new Error("Parent is required");
+
+    if (!childs || childs.length <= 0) {
+      const response = await PartyModel.create({ parent });
+      res.status(200).send({ data: response });
+      return;
+    } else if (childs.length > 0) {
+      let conditionCheck = true;
+      for (const items of childs) {
+        if (!items?.name) {
+          conditionCheck = false;
+          break;
+        }
+      }
+      if (conditionCheck) {
+        const response = await PartyModel.findOneAndUpdate(
+          { parent },
+          { $push: { childs } },
+          { new: true }
         );
-      const insertparent = await PartyModel.create({
-        accountCode,
-        partyDescription: partyDescription,
-        parentCode: partyCode,
-        partyCode: "-",
-      });
-      res.status(200).send({ data: insertparent });
+        res.status(200).send({ data: response });
+      } else {
+        const response = await PartyModel.create({ parent });
+        res.status(200).send({ data: response });
+        return;
+      }
       return;
     }
-    if (parentCode) {
-      res.status(200).send({ data: "insertparent" });
-    }
   } catch (error) {
-    console.log(error);
-    res.status(400).send({ message: `${error.message}` });
+    res.status(402).send({ data: error.message });
   }
 });
-
 export default router;
