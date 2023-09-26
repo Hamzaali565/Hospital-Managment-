@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import express from "express";
-// import { ConsultantsModel } from "../../dbRepo/ConsultantModel.mjs";
 import { dutyDoctorModel } from "../../dbRepo/DutyDoctorModel.mjs";
 
 const router = express.Router();
