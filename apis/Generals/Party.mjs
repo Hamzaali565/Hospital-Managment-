@@ -4,53 +4,57 @@ const router = express.Router();
 
 router.post("/addparty", async (req, res) => {
   try {
-    let { parent, childs } = req.body;
-    if (!parent) throw new Error("Parent is required");
-    // parent Check
+    let { parent, parentCode, childs } = req.body;
+    if (![parent, parentCode].every(Boolean))
+      throw new Error("Parent And its Code is required");
+    console.log(childs);
     const checkParent = await PartyModel.find({ parent });
-    console.log(checkParent);
-    // goes inside if there is not child in body
-    if (!childs || childs.length <= 0) {
-      if (checkParent.length > 0) throw new Error("Parent Already Exist");
-      const response = await PartyModel.create({ parent });
-      res.status(200).send({ data: response });
-      console.log("no child");
+    if (!childs || childs?.length <= 0) {
+      console.log("here in 72");
+      if (checkParent?.length > 0) throw new Error("Parent Already Exist");
+      const ParentAdd = await PartyModel.create({ parent, parentCode });
+      res.status(200).send({ data: ParentAdd });
+      console.log("here in 78");
       return;
     }
-    // goes inside if there is child in body
-    else if (childs.length > 0) {
-      let conditionCheck = true;
+    if (childs.length > 0) {
+      //   console.log(childs[0].accountCode);
+      if (childs[0].accountCode === parentCode)
+        throw new Error("Parent And Child Code Can't Be Same");
+      let childInside = true;
       for (const items of childs) {
-        if (!items?.name) {
-          conditionCheck = false;
+        if (![items?.name, items?.accountCode, items?.status].every(Boolean)) {
+          childInside = false;
           break;
         }
       }
-      if (conditionCheck) {
-        const response = await PartyModel.findOneAndUpdate(
-          { parent },
-          { $push: { childs } },
-          { new: true }
-        );
-        if (response !== null) {
-          res.status(200).send({ data: response });
-          return;
-        }
-        console.log("is child", response);
-        if (response === null) {
-          const createBoth = await PartyModel.create({ parent, childs });
-          res.status(200).send({ data: createBoth });
-          return;
-        }
+      if (childInside === false) {
+        throw new Error("All Parameters of Child is Required");
       } else {
-        const response = await PartyModel.create({ parent });
-        res.status(200).send({ data: response });
-        return;
+        if (checkParent?.length > 0) {
+          const pushChild = await PartyModel.findOneAndUpdate(
+            { parent },
+            { $push: { childs } },
+            { new: true }
+          );
+          console.log("pushed in 98");
+          res.status(201).send({ data: pushChild });
+          return;
+        } else {
+          const parentChild = await PartyModel.create({
+            parent,
+            parentCode,
+            childs,
+          });
+          console.log("Here in 103");
+          res.status(201).send({ data: parentChild });
+          return;
+        }
       }
-      return;
     }
   } catch (error) {
     res.status(402).send({ data: error.message });
   }
 });
+
 export default router;
