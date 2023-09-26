@@ -6,6 +6,7 @@ import servicesApi from "./apis/Generals/Services.mjs";
 import consultantApi from "./apis/Generals/Consultant.mjs";
 import cashLocation from "./apis/Generals/CashCollecting.mjs";
 import partyApi from "./apis/Generals/Party.mjs";
+import dutyDoctor from "./apis/Generals/DutyDoctor.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -26,6 +27,7 @@ app.use("/api/v1", servicesApi);
 app.use("/api/v1", consultantApi);
 app.use("/api/v1", cashLocation);
 app.use("/api/v1", partyApi);
+app.use("/api/v1", dutyDoctor);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
