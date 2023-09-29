@@ -10,6 +10,7 @@ import dutyDoctor from "./apis/Generals/DutyDoctor.mjs";
 import dutyStaff from "./apis/Generals/DutyStaff.mjs";
 import department from "./apis/Generals/Department.mjs";
 import CostCenter from "./apis/Generals/CostCenter.mjs";
+import SubCost from "./apis/Generals/SubCostCenter.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -34,6 +35,7 @@ app.use("/api/v1", dutyDoctor);
 app.use("/api/v1", dutyStaff);
 app.use("/api/v1", department);
 app.use("/api/v1", CostCenter);
+app.use("/api/v1", SubCost);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
