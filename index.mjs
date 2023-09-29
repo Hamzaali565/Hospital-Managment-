@@ -8,6 +8,7 @@ import cashLocation from "./apis/Generals/CashCollecting.mjs";
 import partyApi from "./apis/Generals/Party.mjs";
 import dutyDoctor from "./apis/Generals/DutyDoctor.mjs";
 import dutyStaff from "./apis/Generals/DutyStaff.mjs";
+import department from "./apis/Generals/Department.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -30,6 +31,7 @@ app.use("/api/v1", cashLocation);
 app.use("/api/v1", partyApi);
 app.use("/api/v1", dutyDoctor);
 app.use("/api/v1", dutyStaff);
+app.use("/api/v1", department);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
