@@ -12,6 +12,7 @@ import department from "./apis/Generals/Department.mjs";
 import CostCenter from "./apis/Generals/CostCenter.mjs";
 import SubCost from "./apis/Generals/SubCostCenter.mjs";
 import CostHead from "./apis/Generals/CostHead.mjs";
+import PaymentTerm from "./apis/Generals/PaymentTerm.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -39,6 +40,7 @@ app.use("/api/v1", CostCenter);
 app.use("/api/v1", SubCost);
 app.use("/api/v1", SubCost);
 app.use("/api/v1", CostHead);
+app.use("/api/v1", PaymentTerm);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
