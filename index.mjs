@@ -15,6 +15,7 @@ import CostHead from "./apis/Generals/CostHead.mjs";
 import PaymentTerm from "./apis/Generals/PaymentTerm.mjs";
 import Country from "./apis/Generals/Country.mjs";
 import Unit from "./apis/Generals/Unit.mjs";
+import Speciality from "./apis/Generals/Speciality.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -45,6 +46,7 @@ app.use("/api/v1", CostHead);
 app.use("/api/v1", PaymentTerm);
 app.use("/api/v1", Country);
 app.use("/api/v1", Unit);
+app.use("/api/v1", Speciality);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
