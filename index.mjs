@@ -18,6 +18,7 @@ import Unit from "./apis/Generals/Unit.mjs";
 import Speciality from "./apis/Generals/Speciality.mjs";
 import Ward from "./apis/Generals/Ward.mjs";
 import Generic from "./apis/Generals/Generic.mjs";
+import CashRoaster from "./apis/Generals/CashRoaster.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -51,6 +52,7 @@ app.use("/api/v1", Unit);
 app.use("/api/v1", Speciality);
 app.use("/api/v1", Ward);
 app.use("/api/v1", Generic);
+app.use("/api/v1", CashRoaster);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
