@@ -21,6 +21,7 @@ import Generic from "./apis/Generals/Generic.mjs";
 import CashRoaster from "./apis/Generals/CashRoaster.mjs";
 import Discount from "./apis/Generals/Discount.mjs";
 import Diagnosis from "./apis/Generals/Diagnosis.mjs";
+import Approval from "./apis/Generals/Approvals.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -57,6 +58,7 @@ app.use("/api/v1", Generic);
 app.use("/api/v1", CashRoaster);
 app.use("/api/v1", Discount);
 app.use("/api/v1", Diagnosis);
+app.use("/api/v1", Approval);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
