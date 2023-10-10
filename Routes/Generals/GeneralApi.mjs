@@ -1,0 +1,47 @@
+import express from "express";
+
+import servicesApi from "../../apis/Generals/Services.mjs";
+import consultantApi from "../../apis/Generals/Services.mjs";
+import cashLocation from "../../apis/Generals/Services.mjs";
+import partyApi from "../../apis/Generals/Services.mjs";
+import dutyDoctor from "../../apis/Generals/Services.mjs";
+import dutyStaff from "../../apis/Generals/Services.mjs";
+import department from "../../apis/Generals/Services.mjs";
+import CostCenter from "../../apis/Generals/Services.mjs";
+import SubCost from "../../apis/Generals/Services.mjs";
+import CostHead from "../../apis/Generals/Services.mjs";
+import PaymentTerm from "../../apis/Generals/Services.mjs";
+import Country from "../../apis/Generals/Services.mjs";
+import Unit from "../../apis/Generals/Services.mjs";
+import Speciality from "../../apis/Generals/Services.mjs";
+import Ward from "../../apis/Generals/Services.mjs";
+import Generic from "../../apis/Generals/Services.mjs";
+import CashRoaster from "../../apis/Generals/Services.mjs";
+import Discount from "../../apis/Generals/Services.mjs";
+import Diagnosis from "../../apis/Generals/Services.mjs";
+import Approval from "../../apis/Generals/Services.mjs";
+const app = express();
+
+app.use("/api/v1", servicesApi);
+app.use("/api/v1", consultantApi);
+app.use("/api/v1", cashLocation);
+app.use("/api/v1", partyApi);
+app.use("/api/v1", dutyDoctor);
+app.use("/api/v1", dutyStaff);
+app.use("/api/v1", department);
+app.use("/api/v1", CostCenter);
+app.use("/api/v1", SubCost);
+app.use("/api/v1", SubCost);
+app.use("/api/v1", CostHead);
+app.use("/api/v1", PaymentTerm);
+app.use("/api/v1", Country);
+app.use("/api/v1", Unit);
+app.use("/api/v1", Speciality);
+app.use("/api/v1", Ward);
+app.use("/api/v1", Generic);
+app.use("/api/v1", CashRoaster);
+app.use("/api/v1", Discount);
+app.use("/api/v1", Diagnosis);
+app.use("/api/v1", Approval);
+
+export default app;
