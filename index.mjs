@@ -25,6 +25,7 @@ import Approval from "./apis/Generals/Approvals.mjs";
 import ServiceCharges from "./apis/ER/ServiceCharges.mjs";
 import ConsultantCharges from "./apis/ER/ConsultantCharges.mjs";
 import WardCharges from "./apis/ER/WardCharges.mjs";
+import UserWiseWard from "./apis/ER/UserWiseWard.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -65,6 +66,7 @@ app.use("/api/v1", Approval);
 app.use("/api/v1", ServiceCharges);
 app.use("/api/v1", ConsultantCharges);
 app.use("/api/v1", WardCharges);
+app.use("/api/v1", UserWiseWard);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
