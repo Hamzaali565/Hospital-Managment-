@@ -87,7 +87,7 @@ router.post("/erpatientregister", async (req, res) => {
       dateOfBirth,
       address,
       cell,
-      mrNo: checkDuplicate[0].mrNo + 1,
+      mrNo: checkDuplicate?.length > 0 ? checkDuplicate[0]?.mrNo + 1 : 1,
       maritalStatus,
       fatherName,
       gender,
