@@ -28,6 +28,7 @@ import WardCharges from "./apis/ER/WardCharges.mjs";
 import UserWiseWard from "./apis/ER/UserWiseWard.mjs";
 import ERPatientRegister from "./apis/ER/Transction/ERPatientRegister.mjs";
 import ERFrontReg from "./apis/ER/Transction/ERFrontReg.mjs";
+import BedAllocation from "./apis/ER/Transction/BedAllocation.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -71,6 +72,7 @@ app.use("/api/v1", WardCharges);
 app.use("/api/v1", UserWiseWard);
 app.use("/api/v1", ERPatientRegister);
 app.use("/api/v1", ERFrontReg);
+app.use("/api/v1", BedAllocation);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));

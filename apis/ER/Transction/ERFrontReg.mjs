@@ -66,4 +66,16 @@ router.post("/erfrontreg", async (req, res) => {
     res.status(400).send({ message: error.message });
   }
 });
+
+router.get("/getward", async (req, res) => {
+  try {
+    const getERWard = await FrontRegModel.find(
+      { wardType: "ER" },
+      "patientName wardType mrNo bedNo erRegNo partyCode gender"
+    );
+    res.status(200).send({ data: getERWard });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
 export default router;
