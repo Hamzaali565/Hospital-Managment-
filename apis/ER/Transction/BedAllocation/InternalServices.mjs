@@ -1,5 +1,5 @@
 import express from "express";
-import { ERServicesModel } from "../../../dbRepo/ER/TransactionModel/ERServices.mjs";
+import { InternalServicesModel } from "../../../../dbRepo/ER/TransactionModel/BedAllocation/InternalServicesModel.mjs";
 import { Error } from "mongoose";
 
 const router = express.Router();
@@ -22,11 +22,18 @@ router.post("/bedallocation", async (req, res) => {
     const Send = async (data) => {
       res.status(200).send({ data: data });
     };
-    if (![erNo, mrNo, patientName, gender, partyCode].every(Boolean))
+    if (
+      ![erNo, mrNo, patientName, gender, partyCode, internalService].every(
+        Boolean
+      )
+    )
       throw new Error(
         `"erNo, mrNo, patientName, gender, partyCode" Are Required Parameters`
       );
     console.log("internalService[0].serviceName", internalService[0]);
+    if (internalService.length === 0)
+      throw new Error("Internal Services Are required");
+    console.log(typeof internalService);
     if (Object.keys(internalService[0]).length === 0)
       throw new Error("Make your to fill atleast 1 coloumn");
     const intCheck = await internalService.map((eachItems, index) => {
@@ -54,7 +61,7 @@ router.post("/bedallocation", async (req, res) => {
     });
     if (duplicateServiceNames.length > 0)
       throw new Error("Duplicate Services Are Not Allowed.");
-    const createInternalService = await ERServicesModel.create({
+    const createInternalService = await InternalServicesModel.create({
       erNo,
       mrNo,
       patientName,
