@@ -14,10 +14,7 @@ router.post("/bedallocation", async (req, res) => {
       partyCode,
       consultantName,
       internalService,
-      consultantVisit,
       labService,
-      radiologyServices,
-      medicineService,
     } = req.body;
     const Send = async (data) => {
       res.status(200).send({ data: data });
