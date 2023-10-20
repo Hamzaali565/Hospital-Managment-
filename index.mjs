@@ -31,6 +31,7 @@ import ERFrontReg from "./apis/ER/Transction/ERFrontReg.mjs";
 import InternalServices from "./apis/ER/Transction/BedAllocation/InternalServices.mjs";
 import ConsultantVisit from "./apis/ER/Transction/BedAllocation/ConsultantVisit.mjs";
 import LabService from "./apis/ER/Transction/BedAllocation/LabService.mjs";
+import RadiologySevice from "./apis/ER/Transction/BedAllocation/RadiologySevice.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -77,6 +78,7 @@ app.use("/api/v1", ERFrontReg);
 app.use("/api/v1", InternalServices);
 app.use("/api/v1", ConsultantVisit);
 app.use("/api/v1", LabService);
+app.use("/api/v1", RadiologySevice);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
