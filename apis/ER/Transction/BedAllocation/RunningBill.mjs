@@ -26,63 +26,79 @@ router.get("/errunningbill", async (req, res) => {
       console.log("consultantCharges", consultantCharges);
     }
     console.log("totalConsultant", totalConsultant);
+
     // /Internal Services
-    const serviceGiven = await InternalServicesModel.find(
-      { erNo },
-      "internalService"
-    );
+    const serviceGiven = await InternalServicesModel.find({ erNo });
     let internalTotal;
+    let serviceCharges;
     if (serviceGiven.length > 0) {
-      const serviceCharges = serviceGiven[0].internalService.map((items) => ({
+      serviceCharges = serviceGiven[0].internalService.map((items) => ({
         charges: items.amount,
+        serviceName: items.serviceName,
+        NoOFTimes: items.noOfTimes,
+        Charge: items.charges,
       }));
       internalTotal = serviceCharges.reduce((a, b) => {
         return a + b.charges;
       }, 0);
+      serviceCharges.push({ Total: internalTotal });
     }
     console.log("internalTotal", internalTotal);
+
     // / Lab Service
-    const labServiceGiven = await LabServiceModel.find({ erNo }, "labService");
+    const labServiceGiven = await LabServiceModel.find({ erNo });
     let labTotal;
+    let labCharges;
     if (labServiceGiven.length > 0) {
-      const labCharges = labServiceGiven[0].labService.map((items) => ({
+      labCharges = labServiceGiven[0].labService.map((items) => ({
         charges: items.amount,
+        testName: items.testName,
+        charge: items.charges,
+        noOfTimes: items.noOfTimes,
       }));
       //   console.log(labCharges);
       labTotal = labCharges.reduce((a, b) => {
         return a + b.charges;
       }, 0);
+      labCharges.push({ Total: labTotal });
     }
     console.log("labTotal", labTotal);
 
     // /Medicine Services
     const medicineServiceGiven = await medicineServiceModel.find({ erNo });
     let totalMedicineAmount;
+    let medicineCharges;
     if (medicineServiceGiven.length > 0) {
-      const medicineCharges = medicineServiceGiven[0].medicineService.map(
+      medicineCharges = medicineServiceGiven[0].medicineService.map(
         (items) => ({
-          charges: items.amount,
+          drugName: items.medicineName,
+          quantity: items.quantity,
         })
       );
 
       totalMedicineAmount = medicineCharges.reduce((a, b) => {
         return a + b.charges;
       }, 0);
+      medicineCharges.push({ Total: totalMedicineAmount });
     }
     console.log("totalMedicineAmount", totalMedicineAmount);
 
     // /Radiology Service
     const radiologyServiceGiven = await RadiologyServiceModel.find({ erNo });
     let totalRadiology;
+    let radiologyCharges;
     if (radiologyServiceGiven.length > 0) {
-      let radiologyCharges = radiologyServiceGiven[0].radiologyService.map(
+      radiologyCharges = radiologyServiceGiven[0].radiologyService.map(
         (items) => ({
           charges: items.charges,
+          serviceType: items.testName,
+          charge: items.charges,
         })
       );
       totalRadiology = radiologyCharges.reduce((a, b) => {
         return a + b.charges;
       }, 0);
+      radiologyCharges.push({ Total: totalRadiology });
     }
     console.log("totalRadiology", totalRadiology);
 
@@ -90,11 +106,11 @@ router.get("/errunningbill", async (req, res) => {
       totalConsultant + totalRadiology + labTotal + internalTotal;
     res.status(200).send({
       data: {
-        labTotal,
-        internalTotal,
+        labCharges,
+        serviceCharges,
         consultantCharges,
-        totalMedicineAmount,
-        totalRadiology,
+        medicineCharges,
+        radiologyCharges,
         GrandTotal,
       },
     });
