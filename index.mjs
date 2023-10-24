@@ -34,6 +34,7 @@ import LabService from "./apis/ER/Transction/BedAllocation/LabService.mjs";
 import RadiologySevice from "./apis/ER/Transction/BedAllocation/RadiologySevice.mjs";
 import MedicineService from "./apis/ER/Transction/BedAllocation/MedicineService.mjs";
 import RunningBill from "./apis/ER/Transction/BedAllocation/RunningBill.mjs";
+import DischargeSummary from "./apis/ER/Transction/BedAllocation/DischargeSummary.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -83,6 +84,7 @@ app.use("/api/v1", LabService);
 app.use("/api/v1", RadiologySevice);
 app.use("/api/v1", MedicineService);
 app.use("/api/v1", RunningBill);
+app.use("/api/v1", DischargeSummary);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
