@@ -8,7 +8,7 @@ const RadiologyService = new mongoose.Schema({
   radiologyService: [
     {
       testName: { type: String },
-      Charges: { type: Number },
+      charges: { type: Number },
     },
   ],
 });
