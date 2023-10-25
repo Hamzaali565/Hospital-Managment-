@@ -9,6 +9,7 @@ const RadiologyService = new mongoose.Schema({
     {
       testName: { type: String },
       charges: { type: Number },
+      status: { type: String, default: "Pending" },
     },
   ],
 });

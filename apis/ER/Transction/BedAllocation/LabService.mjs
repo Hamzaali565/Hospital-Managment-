@@ -62,4 +62,16 @@ router.post("/labservices", async (req, res) => {
   }
 });
 
+/// lab Status
+router.get("/labstatus", async (req, res) => {
+  try {
+    const { erNo } = req.body;
+    if (!erNo) throw new Error("ER No. id Required.");
+    const testStatus = await LabServiceModel.findOne({ erNo });
+    res.status(200).send({ data: testStatus });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
+
 export default router;

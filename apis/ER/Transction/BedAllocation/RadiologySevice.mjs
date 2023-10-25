@@ -46,4 +46,17 @@ router.post("/radiologyservice", async (req, res) => {
     res.status(400).send({ message: error.message });
   }
 });
+
+///Test Status
+router.get("/radstatus", async (req, res) => {
+  try {
+    const { erNo } = req.body;
+    if (!erNo) throw new Error("ER No. id Required.");
+    const testStatus = await RadiologyServiceModel.findOne({ erNo });
+    res.status(200).send({ data: testStatus });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
+
 export default router;

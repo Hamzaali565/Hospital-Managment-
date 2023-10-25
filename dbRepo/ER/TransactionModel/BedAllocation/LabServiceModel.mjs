@@ -13,6 +13,7 @@ const LabService = new mongoose.Schema({
       noOfTimes: { type: Number },
       charges: { type: Number },
       amount: { type: Number },
+      status: { type: String, default: "Pending" },
     },
   ],
 });
