@@ -7,6 +7,7 @@ const LabService = new mongoose.Schema({
   gender: { type: String, required: true },
   partyCode: { type: String, required: true },
   consultantName: { type: String, required: true },
+  reqNo: { type: Number, default: 0 },
   labService: [
     {
       testName: { type: String },
