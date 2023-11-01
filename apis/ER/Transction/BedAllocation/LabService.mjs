@@ -90,6 +90,7 @@ router.delete("/deletelabreq", async (req, res) => {
     const { id, mainId } = req.body;
     if (![id, mainId].every(Boolean)) throw new Error("Id is required");
     const compare = await LabServiceModel.findById({ _id: mainId });
+    if (compare.length <= 0) throw new Error("Main Id not Found");
     const deleteTest = await LabServiceModel.findOneAndUpdate(
       { _id: mainId },
       { $pull: { labService: { _id: id } } },

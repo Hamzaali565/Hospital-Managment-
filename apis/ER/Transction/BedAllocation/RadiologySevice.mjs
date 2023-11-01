@@ -59,4 +59,26 @@ router.get("/radstatus", async (req, res) => {
   }
 });
 
+router.delete("/deleteradioreq", async (req, res) => {
+  try {
+    const { id, mainId } = req.body;
+    if (![id, mainId].every(Boolean)) throw new Error("Id/mainId is required");
+    const compare = await RadiologyServiceModel.find({ _id: mainId });
+    console.log(compare);
+    if (compare.length <= 0) throw new Error("Main Id Not Found");
+    const deleteReq = await RadiologyServiceModel.findOneAndUpdate(
+      { _id: mainId },
+      { $pull: { radiologyService: { _id: id } } },
+      { new: true }
+    );
+    if (
+      compare[0].radiologyService.length === deleteReq.radiologyService.length
+    )
+      throw new Error("Data Not Deleted Kindly check the Id(s)");
+    res.status(200).send({ data: deleteReq });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
+
 export default router;
