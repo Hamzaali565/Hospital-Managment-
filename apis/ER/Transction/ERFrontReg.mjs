@@ -1,5 +1,6 @@
 import express from "express";
 import { FrontRegModel } from "../../../dbRepo/ER/TransactionModel/ERFrontRegModel.mjs";
+import { ERPatientRegisterModel } from "../../../dbRepo/ER/TransactionModel/ERPatientRegisterModel.mjs";
 
 const router = express.Router();
 
@@ -46,11 +47,21 @@ router.post("/erfrontreg", async (req, res) => {
       limit: 1,
     });
     console.log(getERNo);
+    const getmr = await ERPatientRegisterModel.find({}, "mrNo -_id", {
+      sort: { mrNo: -1 },
+      limit: 1,
+    });
+    console.log("mrno", getmr);
     const createErFrontReg = await FrontRegModel.create({
       erRegNo: getERNo?.length > 0 ? getERNo[0]?.erRegNo + 1 : 1,
       partyCode,
       corporateNo,
-      mrNo,
+      mrNo:
+        mrNo.length === 0
+          ? getmr?.length > 0
+            ? getmr[0]?.mrNo + 1
+            : mrNo
+          : mrNo,
       wardType,
       bedNo,
       patientName,

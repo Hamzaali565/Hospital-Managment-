@@ -1,5 +1,7 @@
 import express from "express";
 import { PatientVitalsModel } from "../../../../dbRepo/ER/TransactionModel/Patient Investigation/PatientVitalsModel.mjs";
+import { ERPatientRegisterModel } from "../../../../dbRepo/ER/TransactionModel/ERPatientRegisterModel.mjs";
+import { FrontRegModel } from "../../../../dbRepo/ER/TransactionModel/ERFrontRegModel.mjs";
 
 const router = express.Router();
 
@@ -16,12 +18,25 @@ router.post("/patientvitals", async (req, res) => {
       party,
       vitals,
     } = req.body;
-    if (
-      ![erNo, patientName, gender, mrNo, ward, bedNo, party, vitals].every(
-        Boolean
-      )
-    )
+    if (![erNo, vitals].every(Boolean))
       throw new Error("All Parameters Are required");
+    const findData = await FrontRegModel.find({ erRegNo: erNo });
+    let sortedData = findData.map((items) => ({
+      erNo: items.erRegNo,
+      patientName: items.patientName,
+      gender: items.gender,
+      mrNo: items.mrNo,
+      ward: items.wardType,
+      bedNo: items.bedNo,
+      party: items.partyCode,
+    }));
+    sortedData = sortedData.reduce((result, currentObj) => {
+      return { ...result, ...currentObj };
+    }, {});
+    console.log(sortedData);
+    if (findData.length <= 0) throw new Error("ER No. not found.");
+    const erCheck = await PatientVitalsModel.find({ erNo });
+    if (erCheck.length > 0) throw new Error("Switch to Edit");
     if (Object.keys(vitals[0]).length <= 0)
       throw new Error("please complete the first row");
     vitals.map((item, i) => {
@@ -43,14 +58,14 @@ router.post("/patientvitals", async (req, res) => {
         `Duplicate Vitals Name found. Please remove ${duplicate}`
       );
     const newPatientVitals = await PatientVitalsModel.create({
-      erNo,
+      erNo: sortedData.erNo,
       consultant,
-      patientName,
-      gender,
-      mrNo,
-      ward,
-      bedNo,
-      party,
+      patientName: sortedData.patientName,
+      gender: sortedData.gender,
+      mrNo: sortedData.mrNo,
+      ward: sortedData.ward,
+      bedNo: sortedData.bedNo,
+      party: sortedData.party,
       vitals,
     });
     res.status(200).send({ data: newPatientVitals });
