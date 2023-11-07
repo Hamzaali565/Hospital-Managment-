@@ -38,6 +38,7 @@ import DischargeSummary from "./apis/ER/Transction/BedAllocation/DischargeSummar
 import PatientDischarge from "./apis/ER/Transction/BedAllocation/PatientDischarge.mjs";
 import SYMP$OBS$DIAG from "./apis/ER/Transction/Patient Investigation/SYMP-OBS-DIAG.mjs";
 import PatientVitals from "./apis/ER/Transction/Patient Investigation/PatientVitals.mjs";
+import ConsultantNotes from "./apis/ER/Transction/Patient Investigation/ConsultantNotes.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -91,6 +92,7 @@ app.use("/api/v1", DischargeSummary);
 app.use("/api/v1", PatientDischarge);
 app.use("/api/v1", SYMP$OBS$DIAG);
 app.use("/api/v1", PatientVitals);
+app.use("/api/v1", ConsultantNotes);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
