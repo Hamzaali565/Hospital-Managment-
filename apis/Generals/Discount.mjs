@@ -25,4 +25,13 @@ router.post("/discount", async (req, res) => {
     res.status(400).send({ message: error.message });
   }
 });
+
+router.get("/getdiscount", async (req, res) => {
+  try {
+    const getDiscount = await DiscountModel.find();
+    res.status(200).send({ data: getDiscount });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
 export default router;

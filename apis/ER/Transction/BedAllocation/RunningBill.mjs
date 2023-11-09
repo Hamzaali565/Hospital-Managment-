@@ -4,16 +4,33 @@ import { InternalServicesModel } from "../../../../dbRepo/ER/TransactionModel/Be
 import { LabServiceModel } from "../../../../dbRepo/ER/TransactionModel/BedAllocation/LabServiceModel.mjs";
 import { medicineServiceModel } from "../../../../dbRepo/ER/TransactionModel/BedAllocation/MedicineServiceModel.mjs";
 import { RadiologyServiceModel } from "../../../../dbRepo/ER/TransactionModel/BedAllocation/RadiologyServicesModel.mjs";
+import { FrontRegModel } from "../../../../dbRepo/ER/TransactionModel/ERFrontRegModel.mjs";
 
 const router = express.Router();
 router.get("/errunningbill", async (req, res) => {
   try {
     const { erNo } = req.body;
     console.log(erNo);
+
+    // check ER No.
+    const checkER = await FrontRegModel.find({ erRegNo: erNo });
+    if (checkER.length <= 0) throw new Error("ER No. not found");
+    const PatientData = checkER.map((items) => ({
+      party: items.partyCode,
+      mrNo: items.mrNo,
+      wardType: items.wardType,
+      bedNo: items.bedNo,
+      patientName: items.patientName,
+      contactNo: items.cellNo,
+      gender: items.gender,
+    }));
+    console.log("PatientData", PatientData);
     // /Consultant Visit
     const consultantVisitC = await consultantVisitModel.find({ erNo });
     let totalConsultant;
     let consultantCharges;
+    console.log("consultantCharges", consultantVisitC);
+
     if (consultantVisitC.length > 0) {
       consultantCharges = consultantVisitC.map((items) => ({
         ConChar: items.consultantVisit[0].charges,
@@ -106,6 +123,7 @@ router.get("/errunningbill", async (req, res) => {
       totalConsultant + totalRadiology + labTotal + internalTotal;
     res.status(200).send({
       data: {
+        PatientData,
         labCharges,
         serviceCharges,
         consultantCharges,
@@ -115,6 +133,7 @@ router.get("/errunningbill", async (req, res) => {
       },
     });
   } catch (error) {
+    console.log(error);
     res.status(400).send({ message: error.message });
   }
 });
