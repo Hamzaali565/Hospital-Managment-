@@ -11,6 +11,7 @@ const PatientDischarge = new mongoose.Schema({
   dischargeCondition: { type: String, required: true },
   symptoms: { type: String, required: true },
   remarks: { type: String },
+  dischargeAt: { type: Date, default: Date.now },
 });
 export const PatientDischargeModel = mongoose.model(
   "PatientDischarge",

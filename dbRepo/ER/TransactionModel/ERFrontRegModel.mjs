@@ -15,5 +15,10 @@ const FrontReg = new mongoose.Schema({
   maritalStatus: { type: String, required: true },
   dateBirth: { type: String, required: true },
   discharged: { type: Boolean, default: false },
+  dutyStaff: { type: String },
+  dutyDoctor: { type: String },
+  prevBed: { type: String },
+  admissionAt: { type: Date },
+  prevAddmissionTime: { type: Date },
 });
 export const FrontRegModel = mongoose.model("FrontReg", FrontReg);

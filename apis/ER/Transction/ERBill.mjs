@@ -1,6 +1,7 @@
 import express from "express";
 import { FrontRegModel } from "../../../dbRepo/ER/TransactionModel/ERFrontRegModel.mjs";
 import { ERBillModel } from "../../../dbRepo/ER/TransactionModel/ERBillModel.mjs";
+import { PatientDischargeModel } from "../../../dbRepo/ER/TransactionModel/BedAllocation/PatientDischargeModel.mjs";
 
 const router = express.Router();
 
@@ -18,6 +19,8 @@ router.post("/finalerbill", async (req, res) => {
       ward: items.wardType,
       bedNo: items.bedNo,
       party: items.partyCode,
+      dutyDoctor: items.dutyDoctor,
+      dutyStaff: items.dutyStaff,
     }));
     sotredData = sotredData.reduce((result, data) => {
       return { ...result, ...data };
@@ -31,6 +34,8 @@ router.post("/finalerbill", async (req, res) => {
       ward: sotredData.ward,
       bedNo: sotredData.bedNo,
       party: sotredData.party,
+      dutyDoctor: sotredData.dutyDoctor,
+      dutyStaff: sotredData.dutyStaff,
       discharged: true,
     });
     if (createFinalErBill.length <= 0) throw new Error("Data not created.");

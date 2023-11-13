@@ -10,6 +10,7 @@ const router = express.Router();
 router.get("/errunningbill", async (req, res) => {
   try {
     const { erNo } = req.body;
+    if (!erNo) throw new Error("ER No. is Required.");
     console.log(erNo);
 
     // check ER No.
@@ -23,6 +24,8 @@ router.get("/errunningbill", async (req, res) => {
       patientName: items.patientName,
       contactNo: items.cellNo,
       gender: items.gender,
+      dutyDoctor: items.dutyDoctor,
+      dutyStaff: items.dutyStaff,
     }));
     console.log("PatientData", PatientData);
     // /Consultant Visit

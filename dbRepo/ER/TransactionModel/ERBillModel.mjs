@@ -10,6 +10,7 @@ const ERBill = new mongoose.Schema({
   bedNo: { type: String, required: true },
   party: { type: String, required: true },
   discharged: { type: Boolean, required: false },
+  dischargedAt: { type: Date, default: Date.now },
 });
 
 export const ERBillModel = mongoose.model("ERBill", ERBill);

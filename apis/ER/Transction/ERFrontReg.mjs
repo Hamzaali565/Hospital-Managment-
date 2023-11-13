@@ -71,9 +71,11 @@ router.post("/erfrontreg", async (req, res) => {
       gender,
       maritalStatus,
       dateBirth,
+      admissionAt: new Date(),
     });
     res.status(200).send({ data: createErFrontReg });
   } catch (error) {
+    console.log("erERROR", error);
     res.status(400).send({ message: error.message });
   }
 });
@@ -89,4 +91,14 @@ router.get("/getward", async (req, res) => {
     res.status(400).send({ message: error.message });
   }
 });
+
+router.get("/geterdischarged", async (req, res) => {
+  try {
+    const getERWard = await FrontRegModel.find({ discharged: true });
+    res.status(200).send({ data: getERWard });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
+
 export default router;
