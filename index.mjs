@@ -41,6 +41,7 @@ import PatientVitals from "./apis/ER/Transction/Patient Investigation/PatientVit
 import ConsultantNotes from "./apis/ER/Transction/Patient Investigation/ConsultantNotes.mjs";
 import ERFinalBill from "./apis/ER/Transction/ERBill.mjs";
 import ReAdmission from "./apis/ER/Transction/REAdmission.mjs";
+import radiologyCharges from "./apis/Radiology/Master/RadiologyCharges.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -97,6 +98,7 @@ app.use("/api/v1", PatientVitals);
 app.use("/api/v1", ConsultantNotes);
 app.use("/api/v1", ERFinalBill);
 app.use("/api/v1", ReAdmission);
+app.use("/api/v1", radiologyCharges);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
