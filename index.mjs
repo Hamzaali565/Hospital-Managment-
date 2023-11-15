@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+mongoose.set("strictQuery", false);
 import servicesApi from "./apis/Generals/Services.mjs";
 import consultantApi from "./apis/Generals/Consultant.mjs";
 import cashLocation from "./apis/Generals/CashCollecting.mjs";
@@ -42,6 +43,8 @@ import ConsultantNotes from "./apis/ER/Transction/Patient Investigation/Consulta
 import ERFinalBill from "./apis/ER/Transction/ERBill.mjs";
 import ReAdmission from "./apis/ER/Transction/REAdmission.mjs";
 import radiologyCharges from "./apis/Radiology/Master/RadiologyCharges.mjs";
+import userAndConsMapping from "./apis/Radiology/Master/ConsultantUserMapping.mjs";
+import RadioTemplate from "./apis/Radiology/Master/Tempelate.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -99,6 +102,8 @@ app.use("/api/v1", ConsultantNotes);
 app.use("/api/v1", ERFinalBill);
 app.use("/api/v1", ReAdmission);
 app.use("/api/v1", radiologyCharges);
+app.use("/api/v1", userAndConsMapping);
+app.use("/api/v1", RadioTemplate);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
