@@ -45,6 +45,7 @@ import ReAdmission from "./apis/ER/Transction/REAdmission.mjs";
 import radiologyCharges from "./apis/Radiology/Master/RadiologyCharges.mjs";
 import userAndConsMapping from "./apis/Radiology/Master/ConsultantUserMapping.mjs";
 import RadioTemplate from "./apis/Radiology/Master/Tempelate.mjs";
+import UserWiseService from "./apis/Radiology/Master/UserWiseService.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -104,6 +105,7 @@ app.use("/api/v1", ReAdmission);
 app.use("/api/v1", radiologyCharges);
 app.use("/api/v1", userAndConsMapping);
 app.use("/api/v1", RadioTemplate);
+app.use("/api/v1", UserWiseService);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
