@@ -46,6 +46,7 @@ import radiologyCharges from "./apis/Radiology/Master/RadiologyCharges.mjs";
 import userAndConsMapping from "./apis/Radiology/Master/ConsultantUserMapping.mjs";
 import RadioTemplate from "./apis/Radiology/Master/Tempelate.mjs";
 import UserWiseService from "./apis/Radiology/Master/UserWiseService.mjs";
+import RadiologyTestRequisitionRegistration from "./apis/Radiology/Transaction/Test-Requisition.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -106,6 +107,7 @@ app.use("/api/v1", radiologyCharges);
 app.use("/api/v1", userAndConsMapping);
 app.use("/api/v1", RadioTemplate);
 app.use("/api/v1", UserWiseService);
+app.use("/api/v1", RadiologyTestRequisitionRegistration);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
