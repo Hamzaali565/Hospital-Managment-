@@ -64,9 +64,16 @@ router.post("/radiotestreq", async (req, res) => {
     }, 0);
     const balance = total - recievedAmount;
 
-    console.log(balance);
+    const radionumber = await RadioTestReqModel.find({}, "radiologyNo -_id", {
+      sort: {
+        radiologyNo: -1,
+      },
+      limit: 1,
+    });
+    console.log(radionumber);
     const createData = await RadioTestReqModel.create({
-      radiologyNo,
+      radiologyNo:
+        radionumber[0].radiologyNo === 0 ? 1 : radionumber[0].radiologyNo + 1,
       mrNo,
       patientName,
       gender,
