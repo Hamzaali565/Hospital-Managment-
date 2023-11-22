@@ -16,6 +16,7 @@ const RadioTestReq = new mongoose.Schema({
       testName: { type: String },
       amount: { type: Number },
       date: { type: Date, default: Date.now },
+      tagged: { type: Boolean, default: false },
     },
   ],
   cashLocation: { type: String, required: true },

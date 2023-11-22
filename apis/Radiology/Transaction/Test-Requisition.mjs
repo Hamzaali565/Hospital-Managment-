@@ -100,4 +100,12 @@ router.post("/radiotestreq", async (req, res) => {
   }
 });
 
+router.get("/getradiotests", async (req, res) => {
+  try {
+    let getAll = await RadioTestReqModel.find({ cashTagged: false });
+  } catch (error) {
+    res.status(200).send({ message: error.message });
+  }
+});
+
 export default router;
