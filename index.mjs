@@ -48,7 +48,7 @@ import RadioTemplate from "./apis/Radiology/Master/Tempelate.mjs";
 import UserWiseService from "./apis/Radiology/Master/UserWiseService.mjs";
 import RadiologyTestRequisitionRegistration from "./apis/Radiology/Transaction/Test-Requisition.mjs";
 import TaggingCash from "./apis/Radiology/Transaction/TaggingCash.mjs";
-import Lab from "./apis/Lab/Master/Test.mjs";
+import LabTest from "./apis/Lab/Master/Test.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -111,7 +111,7 @@ app.use("/api/v1", RadioTemplate);
 app.use("/api/v1", UserWiseService);
 app.use("/api/v1", RadiologyTestRequisitionRegistration);
 app.use("/api/v1", TaggingCash);
-app.use("/api/v1", Lab);
+app.use("/api/v1", LabTest);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
