@@ -10,6 +10,7 @@ const LabGroup = new mongoose.Schema({
       serialNo: { type: Number },
       testCode: { type: Number },
       testName: { type: String },
+      test_id: { type: String },
       testStyle: [
         {
           bold: { type: Boolean },
@@ -34,4 +35,4 @@ const LabGroup = new mongoose.Schema({
     },
   ],
 });
-export const LagGroupModel = mongoose.model("LabGroup", LabGroup);
+export const LabGroupModel = mongoose.model("LabGroup", LabGroup);
