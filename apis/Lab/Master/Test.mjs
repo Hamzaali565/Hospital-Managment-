@@ -24,7 +24,7 @@ router.post("/labtest", async (req, res) => {
       )
     )
       throw new Error("All Parameters are required.");
-    testRanges.map((items, i) => {
+    let e = testRanges.map((items, i) => {
       if (
         ![
           items.equipment,
@@ -40,7 +40,7 @@ router.post("/labtest", async (req, res) => {
     const duplicates = [];
 
     testRanges.forEach((item, index) => {
-      const key = `${item.gender}-${item.fromAge}-${item.toAge}`;
+      const key = `${item.gender}-${item.fromAge}-${item.toAge}-${item.ageType}`;
 
       if (uniqueSet.has(key)) {
         duplicates.push({ index, item });
@@ -75,8 +75,9 @@ router.post("/labtest", async (req, res) => {
       style,
       testRanges,
     });
-    res.status(200).send({ data: createTest });
+    res.status(200).send({ message: "Test Has Been Created Successfully." });
   } catch (error) {
+    console.log("Error", error);
     res.status(400).send({ message: error.message });
   }
 });

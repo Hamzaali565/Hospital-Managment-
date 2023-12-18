@@ -35,6 +35,7 @@ export const BED = async (req, res, serviceArray, model) => {
     });
     res.status(200).send({ data: createConsultantVisit });
   } catch (error) {
+    console.log("error", error);
     res.status(400).send({ message: error.message });
   }
 };
