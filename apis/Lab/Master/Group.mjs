@@ -4,9 +4,17 @@ const router = express.Router();
 
 router.post("/labgroup", async (req, res) => {
   try {
-    const { groupCode, groupName, department, reportDays, groupDetails } =
-      req.body;
-    if (![groupName, department, reportDays, groupDetails].every(Boolean))
+    const {
+      groupCode,
+      groupName,
+      department,
+      reportDays,
+      status,
+      groupDetails,
+    } = req.body;
+    if (
+      ![groupName, department, reportDays, groupDetails, status].every(Boolean)
+    )
       throw new Error("All parameters are required.");
     //  checkng group details
     groupDetails.map((items, i) => {
@@ -40,7 +48,10 @@ router.post("/labgroup", async (req, res) => {
       department,
       reportDays,
       groupDetails,
+      status,
     });
+    res.status(400).send({ message: "Data Created Successfully." });
+
     return;
   } catch (error) {
     res.status(400).send({ message: error.message });

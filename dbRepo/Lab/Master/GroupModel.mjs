@@ -5,6 +5,7 @@ const LabGroup = new mongoose.Schema({
   groupName: { type: String, required: true },
   department: { type: String, required: true },
   reportDays: { type: String, required: true },
+  status: { type: Boolean, required: true },
   groupDetails: [
     {
       serialNo: { type: Number },
