@@ -85,15 +85,17 @@ router.post("/labtest", async (req, res) => {
 // department wise tests
 router.get("/gettest", async (req, res) => {
   try {
-    const { department } = req.body;
+    const { department } = req.query;
+    console.log("department", department);
     if (!department) throw new Error("Please Select department");
     const tests = await testModel.find({ department });
     console.log("test", tests);
     if (tests.length <= 0)
-      throw new Error("No Data Found Agaisnt This Department.");
+      throw new Error("No Data Found Against This Department.");
     res.status(200).send({ data: tests });
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
 });
+
 export default router;
