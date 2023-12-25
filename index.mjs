@@ -49,6 +49,7 @@ import UserWiseService from "./apis/Radiology/Master/UserWiseService.mjs";
 import RadiologyTestRequisitionRegistration from "./apis/Radiology/Transaction/Test-Requisition.mjs";
 import TaggingCash from "./apis/Radiology/Transaction/TaggingCash.mjs";
 import LabTest from "./apis/Lab/Master/Test.mjs";
+import GroupTest from "./apis/Lab/Master/Group.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -112,6 +113,7 @@ app.use("/api/v1", UserWiseService);
 app.use("/api/v1", RadiologyTestRequisitionRegistration);
 app.use("/api/v1", TaggingCash);
 app.use("/api/v1", LabTest);
+app.use("/api/v1", GroupTest);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));

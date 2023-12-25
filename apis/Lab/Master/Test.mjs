@@ -88,7 +88,10 @@ router.get("/gettest", async (req, res) => {
     const { department } = req.query;
     console.log("department", department);
     if (!department) throw new Error("Please Select department");
-    const tests = await testModel.find({ department });
+    const tests = await testModel.find(
+      { department },
+      "testCode testName department category"
+    );
     console.log("test", tests);
     if (tests.length <= 0)
       throw new Error("No Data Found Against This Department.");

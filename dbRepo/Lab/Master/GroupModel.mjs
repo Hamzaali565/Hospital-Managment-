@@ -11,28 +11,11 @@ const LabGroup = new mongoose.Schema({
       serialNo: { type: Number },
       testCode: { type: Number },
       testName: { type: String },
-      test_id: { type: String },
-      testStyle: [
-        {
-          bold: { type: Boolean },
-          italic: { type: Boolean },
-          underline: { type: Boolean },
-          fontSize: { type: String },
-        },
-      ],
-      rangesDetails: [
-        {
-          equipment: { type: String },
-          gender: { type: String },
-          min: { type: Number },
-          max: { type: Number },
-          unit: { type: String },
-          fromAge: { type: Number },
-          toAge: { type: Number },
-          ageTyoe: { type: String },
-          normalRanges: { type: String },
-        },
-      ],
+      _id: { type: String },
+      bold: { type: Boolean },
+      italic: { type: Boolean },
+      underline: { type: Boolean },
+      fontSize: { type: String },
     },
   ],
 });

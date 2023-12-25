@@ -4,28 +4,25 @@ const router = express.Router();
 
 router.post("/labgroup", async (req, res) => {
   try {
-    const {
-      groupCode,
+    const { groupName, department, reportDays, status, groupDetails } =
+      req.body;
+    console.log({
       groupName,
       department,
       reportDays,
       status,
       groupDetails,
-    } = req.body;
-    if (
-      ![groupName, department, reportDays, groupDetails, status].every(Boolean)
-    )
-      throw new Error("All parameters are required.");
+    });
+    if (![groupName, department, reportDays, groupDetails].every(Boolean))
+      throw new Error("All parameters are required 121.");
+    if (groupDetails.length <= 0)
+      throw new Error("Group Datails Are Compulsory.");
     //  checkng group details
     groupDetails.map((items, i) => {
       if (
-        ![
-          items.serialNo,
-          items.testCode,
-          items.testName,
-          items.rangesDetails,
-          items.test_id,
-        ].every(Boolean)
+        ![items.serialNo, items.testCode, items.testName, items._id].every(
+          Boolean
+        )
       )
         throw new Error(
           `All Parameters Are required in group details at line No. ${i + 1}.`
@@ -33,27 +30,34 @@ router.post("/labgroup", async (req, res) => {
     });
     let duplicate = [];
     let Unique = [];
-    groupDetails.foreach((items) => {
-      if (Unique.includes(items.test_id)) {
-        duplicate.push(items.test_id);
+    groupDetails.forEach((items) => {
+      if (Unique.includes(items._id)) {
+        duplicate.push(items._id);
       } else {
-        Unique.push(items.test_id);
+        Unique.push(items._id);
       }
     });
     if (duplicate.length > 0)
       throw new Error("Duplicate tests are not allowed.");
+    const groupCodeData = await LabGroupModel.find({}, "groupCode", {
+      sort: { groupCode: -1 },
+      limit: 1,
+    });
+    console.log("groupCodeData", groupCodeData);
     let create = await LabGroupModel.create({
-      groupCode,
+      groupCode: groupCodeData.length <= 0 ? 1 : groupCodeData[0].groupCode + 1,
       groupName,
       department,
       reportDays,
       groupDetails,
       status,
     });
-    res.status(400).send({ message: "Data Created Successfully." });
+    res.status(200).send({ message: "Data Created Successfully." });
 
     return;
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
 });
+
+export default router;
