@@ -87,15 +87,24 @@ router.get("/gettest", async (req, res) => {
   try {
     const { department } = req.query;
     console.log("department", department);
-    if (!department) throw new Error("Please Select department");
-    const tests = await testModel.find(
-      { department },
-      "testCode testName department category"
-    );
-    console.log("test", tests);
-    if (tests.length <= 0)
-      throw new Error("No Data Found Against This Department.");
-    res.status(200).send({ data: tests });
+    if (!department) {
+      const tests = await testModel.find({}, "-testRanges");
+      console.log("test", tests);
+      if (tests.length <= 0)
+        throw new Error("No Data Found Against This Department.");
+      res.status(200).send({ data: tests });
+      return;
+    } else {
+      const tests = await testModel.find(
+        { department },
+        "testCode testName department category"
+      );
+      console.log("test", tests);
+      if (tests.length <= 0)
+        throw new Error("No Data Found Against This Department.");
+      res.status(200).send({ data: tests });
+      return;
+    }
   } catch (error) {
     res.status(400).send({ message: error.message });
   }

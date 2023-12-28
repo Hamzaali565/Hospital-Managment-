@@ -57,4 +57,25 @@ router.post("/addparty", async (req, res) => {
   }
 });
 
+router.get("/getparties", async (req, res) => {
+  try {
+    const response = await PartyModel.aggregate([
+      {
+        $unwind: "$childs",
+      },
+      {
+        $project: {
+          parent: 1,
+          childId: "$childs._id",
+          childName: "$childs.name",
+        },
+      },
+    ]);
+    if (res.length <= 0) throw new Error("No data found.");
+    res.status(200).send({ data: response });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
+
 export default router;

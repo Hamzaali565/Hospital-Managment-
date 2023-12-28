@@ -50,6 +50,7 @@ import RadiologyTestRequisitionRegistration from "./apis/Radiology/Transaction/T
 import TaggingCash from "./apis/Radiology/Transaction/TaggingCash.mjs";
 import LabTest from "./apis/Lab/Master/Test.mjs";
 import GroupTest from "./apis/Lab/Master/Group.mjs";
+import LabCharges from "./apis/Lab/Master/LabCharges.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -114,6 +115,7 @@ app.use("/api/v1", RadiologyTestRequisitionRegistration);
 app.use("/api/v1", TaggingCash);
 app.use("/api/v1", LabTest);
 app.use("/api/v1", GroupTest);
+app.use("/api/v1", LabCharges);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
