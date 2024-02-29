@@ -60,4 +60,19 @@ router.post("/labgroup", async (req, res) => {
   }
 });
 
+router.get("/getgroup", async (req, res) => {
+  try {
+    const { department } = req.query;
+    if (!department) throw new Error("Department is Required");
+    const group = await LabGroupModel.find(
+      { department },
+      "groupCode groupName department"
+    );
+    if (group.length <= 0) throw new Error("No Data Found against this Party.");
+    res.status(200).send({ data: group });
+    return;
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
 export default router;

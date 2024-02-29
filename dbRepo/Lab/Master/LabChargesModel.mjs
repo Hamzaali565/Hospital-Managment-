@@ -5,8 +5,8 @@ const LabCharges = new mongoose.Schema({
   party_id: { type: String, required: true },
   testsPrice: [
     {
-      code: { type: String },
-      name: { type: String },
+      testCode: { type: String },
+      testName: { type: String },
       price: { type: Number },
       status: { type: Boolean },
     },
