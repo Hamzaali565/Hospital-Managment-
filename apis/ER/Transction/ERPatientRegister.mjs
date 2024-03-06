@@ -99,4 +99,13 @@ router.post("/erpatientregister", async (req, res) => {
     res.status(400).send({ message: error.message });
   }
 });
+router.get("/getmr", async (req, res) => {
+  try {
+    const response = await ERPatientRegisterModel.find({});
+    console.log("response", response);
+    res.status(200).send({ data: response });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
 export default router;

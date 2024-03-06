@@ -37,4 +37,15 @@ router.post("/adddoctor", async (req, res) => {
   }
 });
 
+router.get("/getconsultant", async (req, res) => {
+  try {
+    let response = await ConsultantsModel.find(
+      { status: true },
+      "code name speciality status"
+    );
+    res.status(200).send({ data: response });
+  } catch (error) {
+    res.status(400).send({ message: `${error.message}` });
+  }
+});
 export default router;
