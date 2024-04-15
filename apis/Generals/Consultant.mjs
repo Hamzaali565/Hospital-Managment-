@@ -67,7 +67,7 @@ router.get("/vectorconsultant", async (req, res) => {
     const { name } = req.query;
     if (!name) throw new Error("Please Enter Name");
     let response = await ConsultantsModel.find({
-      name: { $regex: `${name}` },
+      name: { $regex: new RegExp(`${name}`, "i") },
     });
     if (response.length <= 0)
       throw new Error("No Consultant Found with this Name.");
