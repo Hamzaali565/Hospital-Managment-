@@ -78,4 +78,18 @@ router.get("/getparties", async (req, res) => {
   }
 });
 
+router.get("/vectorparty", async (req, res) => {
+  try {
+    const { name } = req.query;
+    if (!name) throw new Error("Please Enter Name");
+    let response = await PartyModel.find({
+      "childs.name": { $regex: new RegExp(`${name}`, "i") },
+    });
+    if (response.length <= 0) throw new Error("No Party Found with this Name.");
+    res.status(200).send({ data: response });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
+
 export default router;

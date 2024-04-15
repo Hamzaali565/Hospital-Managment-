@@ -51,19 +51,6 @@ router.get("/getconsultant", async (req, res) => {
 
 router.get("/vectorconsultant", async (req, res) => {
   try {
-    // productModel.find({ name: { $regex: `${queryName}` } }
-    //         , (err, data) => {
-    //             if (!err) {
-    //                 if (data) {
-    //                     res.send({
-    //                         message: 'get product success',
-    //                         data: data,
-    //                     });
-    //                 } else {
-    //                     res.status(404).send({
-    //                         message: "product not found",
-    //                     });
-    //                 }
     const { name } = req.query;
     if (!name) throw new Error("Please Enter Name");
     let response = await ConsultantsModel.find({
