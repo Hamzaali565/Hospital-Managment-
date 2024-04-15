@@ -48,4 +48,33 @@ router.get("/getconsultant", async (req, res) => {
     res.status(400).send({ message: `${error.message}` });
   }
 });
+
+router.get("/vectorconsultant", async (req, res) => {
+  try {
+    // productModel.find({ name: { $regex: `${queryName}` } }
+    //         , (err, data) => {
+    //             if (!err) {
+    //                 if (data) {
+    //                     res.send({
+    //                         message: 'get product success',
+    //                         data: data,
+    //                     });
+    //                 } else {
+    //                     res.status(404).send({
+    //                         message: "product not found",
+    //                     });
+    //                 }
+    const { name } = req.query;
+    if (!name) throw new Error("Please Enter Name");
+    let response = await ConsultantsModel.find({
+      name: { $regex: `${name}` },
+    });
+    if (response.length <= 0)
+      throw new Error("No Consultant Found with this Name.");
+    res.status(200).send({ data: response });
+  } catch (error) {
+    res.status(400).send({ message: `${error.message}` });
+  }
+});
+
 export default router;
