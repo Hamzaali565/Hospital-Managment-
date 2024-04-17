@@ -135,4 +135,30 @@ router.post("/labchargesnew", async (req, res) => {
   // });
 });
 
+router.get("/vectorlabcharges", async (req, res) => {
+  try {
+    const { name, party } = req.query;
+    if (!name || !party) throw new Error("Party And Name is required.");
+    let response = await LabChargesModel.find({
+      testsPrice: {
+        $elemMatch: {
+          testName: { $regex: new RegExp(`${name}`, "i") },
+          status: true,
+        },
+      },
+      party: { $regex: new RegExp(`${party}`, "i") },
+    });
+    const testdetails = response[0].testsPrice.filter(
+      (item) => item.status !== true
+    );
+
+    console.log(testdetails);
+    res.status(200).send({ data: response });
+    console.log(response);
+    if (response.length <= 0) throw new Error("No Data Found");
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
+
 export default router;
