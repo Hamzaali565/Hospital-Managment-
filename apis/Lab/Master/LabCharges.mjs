@@ -137,7 +137,7 @@ router.post("/labchargesnew", async (req, res) => {
 
 router.get("/vectorlabcharges", async (req, res) => {
   try {
-    const { name, party } = req.query;
+    const { name, party, _id } = req.query;
     if (!name || !party) throw new Error("Party And Name is required.");
     let response = await LabChargesModel.find({
       testsPrice: {
@@ -147,15 +147,25 @@ router.get("/vectorlabcharges", async (req, res) => {
         },
       },
       party: { $regex: new RegExp(`${party}`, "i") },
+      party_id: _id,
     });
-    const testdetails = response[0].testsPrice.filter(
-      (item) => item.status !== true
-    );
-
-    console.log(testdetails);
-    res.status(200).send({ data: response });
-    console.log(response);
     if (response.length <= 0) throw new Error("No Data Found");
+    let testdetails = response[0].testsPrice.filter(
+      (item) => item.status !== false
+    );
+    const testdetails1 = testdetails.map((item, ...rest) => {
+      return {
+        name: item.testName,
+        code: item.testCode,
+        price: item.price,
+        status: item.status,
+        _id: item._id,
+      };
+    });
+
+    console.log(testdetails1);
+    res.status(200).send({ data: testdetails1 });
+    console.log(response);
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
