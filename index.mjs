@@ -52,6 +52,7 @@ import LabTest from "./apis/Lab/Master/Test.mjs";
 import GroupTest from "./apis/Lab/Master/Group.mjs";
 import LabCharges from "./apis/Lab/Master/LabCharges.mjs";
 import DepartmentRemarks from "./apis/Lab/Master/TestRemarks.mjs";
+import RecieptType from "./apis/Generals/RecieptType.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -118,6 +119,7 @@ app.use("/api/v1", LabTest);
 app.use("/api/v1", GroupTest);
 app.use("/api/v1", LabCharges);
 app.use("/api/v1", DepartmentRemarks);
+app.use("/api/v1", RecieptType);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));

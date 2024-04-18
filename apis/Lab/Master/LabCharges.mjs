@@ -138,6 +138,7 @@ router.post("/labchargesnew", async (req, res) => {
 router.get("/vectorlabcharges", async (req, res) => {
   try {
     const { name, party, _id } = req.query;
+    console.log(name, party, _id);
     if (!name || !party) throw new Error("Party And Name is required.");
     let response = await LabChargesModel.find({
       testsPrice: {
