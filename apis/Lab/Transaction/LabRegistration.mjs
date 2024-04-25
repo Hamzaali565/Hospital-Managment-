@@ -35,7 +35,7 @@ router.post("/labregistration", async (req, res) => {
         receiptType,
       ].every(Boolean)
     )
-      throw new Error("All Parameters Are Required");
+      throw new Error("All fields Are Required");
     const createdLabRegisttraion = await LabRegisteraionModel.create({
       mrData,
       consultantName,
