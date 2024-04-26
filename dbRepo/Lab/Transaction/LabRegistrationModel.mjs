@@ -20,6 +20,7 @@ const LabRegSchema = new mongoose.Schema({
       price: { type: Number, required: true },
       tagType: { type: Boolean, default: false },
       department: { type: String },
+      _id: { type: mongoose.ObjectId, required: true },
     },
   ],
   receiptType: { type: String, required: true },
@@ -29,6 +30,9 @@ const LabRegSchema = new mongoose.Schema({
   voucherUser: { type: String },
   voucherTag: { type: Boolean, default: false },
   voucherDate: { type: Date },
+  bankName: { type: String },
+  referalNo: { type: String },
+  totalAmount: { type: Number, required: true },
 });
 
 LabRegSchema.plugin(AutoIncrement, { inc_field: "labNo" });
