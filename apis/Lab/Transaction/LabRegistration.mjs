@@ -1,6 +1,7 @@
 import express from "express";
 import { LabRegisteraionModel } from "../../../dbRepo/Lab/Transaction/LabRegistrationModel.mjs";
 import { testModel } from "../../../dbRepo/Lab/Master/TestModel.mjs";
+import { LabGroupModel } from "../../../dbRepo/Lab/Master/GroupModel.mjs";
 
 const router = express.Router();
 
@@ -134,6 +135,39 @@ router.get("/labregwise", async (req, res) => {
     if (filterData[0].test.length <= 0)
       throw new Error("This Test is Untagged...");
     res.status(200).send({ data: filterData });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
+
+// get ranges and group details
+router.get("/getranges", async (req, res) => {
+  try {
+    const { test_id, age } = req.query;
+    if (!test_id || !age) throw new Error("Test Id / Age is required!!");
+
+    const responseTest = await testModel.findOne({ _id: test_id }).lean(); // Use lean() to get a plain JS object
+
+    if (responseTest) {
+      const rangeObject = responseTest.testRanges.find(
+        (range) => age >= range?.fromAge && age <= range?.toAge
+      );
+
+      if (rangeObject) {
+        // Create a new object with the filtered range
+        const filteredResponse = {
+          ...responseTest,
+          testRanges: [rangeObject],
+        };
+
+        return res.status(200).send({ data: [filteredResponse] });
+      } else {
+        throw new Error("Kindly check ranges properly.");
+      }
+    }
+
+    const responseGroup = await LabGroupModel.findOne({ _id: test_id }).lean();
+    return res.status(200).send({ dataG: responseGroup });
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
