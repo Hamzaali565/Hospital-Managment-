@@ -54,6 +54,7 @@ import LabCharges from "./apis/Lab/Master/LabCharges.mjs";
 import DepartmentRemarks from "./apis/Lab/Master/TestRemarks.mjs";
 import RecieptType from "./apis/Generals/RecieptType.mjs";
 import LabRegisteration from "./apis/Lab/Transaction/LabRegistration.mjs";
+import ResultEntry from "./apis/Lab/Result/Result.mjs";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
@@ -122,6 +123,7 @@ app.use("/api/v1", LabCharges);
 app.use("/api/v1", DepartmentRemarks);
 app.use("/api/v1", RecieptType);
 app.use("/api/v1", LabRegisteration);
+app.use("/api/v1", ResultEntry);
 
 const __dirname = path.resolve();
 app.use("/", express.static(path.join(__dirname, "./Frontend/build")));
