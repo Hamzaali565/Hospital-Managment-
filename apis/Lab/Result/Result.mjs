@@ -6,26 +6,13 @@ const router = express.Router();
 
 router.post("/resultentry", async (req, res) => {
   try {
-    const {
-      test_id,
-      testCode,
-      testName,
-      testDate,
-      testRanges,
-      testResult,
-      labNo,
-    } = req.body;
+    const { test_id, testCode, testName, testRanges, testResult, labNo } =
+      req.body;
     console.log("req.body", req.body);
     if (
-      ![
-        test_id,
-        testCode,
-        testName,
-        testDate,
-        testRanges,
-        testResult,
-        labNo,
-      ].every(Boolean)
+      ![test_id, testCode, testName, testRanges, testResult, labNo].every(
+        Boolean
+      )
     )
       throw new Error("All Parameters sre required");
     const newData = await LabRegisteraionModel.find({ labNo });
