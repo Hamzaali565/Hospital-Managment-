@@ -20,6 +20,7 @@ const LabRegSchema = new mongoose.Schema({
       price: { type: Number, required: true },
       tagType: { type: Boolean, default: false },
       department: { type: String },
+      resultEntry: { type: Boolean, default: false },
       test_id: { type: mongoose.ObjectId, required: true },
     },
   ],

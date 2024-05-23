@@ -106,6 +106,8 @@ router.put("/updatestatus", async (req, res) => {
     const { _id, test_id, status } = req.query;
     if (![_id, test_id, status].every(Boolean))
       throw new Error("All Parameters Are Required");
+    console.log("id", _id);
+    console.log("test_id", test_id);
     const response = await LabRegisteraionModel.findOneAndUpdate(
       {
         _id: _id,
@@ -130,10 +132,13 @@ router.get("/labregwise", async (req, res) => {
       throw new Error("No data found against this Lab No.");
     let filterData = response.map((items) => ({
       ...items.toObject(),
-      test: items.test.filter((testItem) => testItem.tagType !== false),
+      test: items.test.filter(
+        (testItem) =>
+          testItem.tagType !== false && testItem.resultEntry !== true
+      ),
     }));
     if (filterData[0].test.length <= 0)
-      throw new Error("This Test is Untagged...");
+      throw new Error("This Test is Untagged OR Result Already Entered");
     res.status(200).send({ data: filterData });
   } catch (error) {
     res.status(400).send({ message: error.message });
