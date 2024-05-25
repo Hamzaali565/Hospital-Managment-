@@ -76,4 +76,16 @@ router.post("/resultentry", async (req, res) => {
   }
 });
 
+router.get("/result", async (req, res) => {
+  try {
+    const { labNo } = req.query;
+    if (!labNo) throw new Error("LAB NO. IS REQUIRED!!!");
+    const result = await resultEntryModel.find({ labNo: labNo });
+    if (result.length <= 0) throw new Error("RESULT IS NOT ENTERED YET 🥺");
+    res.status(200).send({ data: result });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
+
 export default router;
