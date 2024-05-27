@@ -67,7 +67,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "*"],
+    origin: ["http://localhost:3000", "https://lab-model-v2.vercel.app"],
     credentials: true,
   })
 );
